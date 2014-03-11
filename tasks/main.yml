@@ -1,0 +1,15 @@
+---
+  - name: install common dependencies for rails gems
+    apt: name={{item}} state=latest update_cache=yes
+    with_items:
+      - imagemagick
+      - libproj-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - sqlite3
+      - libsqlite3-dev
+      - libzmq-dev
+      - libaspell-dev
+
+  - include: rails_postgresql_db.yml
+    when: rails_postgresql_db_name is defined
