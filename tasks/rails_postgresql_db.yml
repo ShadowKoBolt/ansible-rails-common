@@ -1,0 +1,20 @@
+---
+  - name: create app database user
+    sudo: yes
+    sudo_user: postgres
+    postgresql_user: name={{ rails_postgresql_db_name }} password={{ rails_postgresql_db_name }} role_attr_flags=CREATEDB,SUPERUSER
+
+  - name: allow md5 passwords for local users
+    sudo_user: root
+    shell: sed -i 's/^local\s\+all\s\+all\s\+peer/local all all md5/' /etc/postgresql/9.1/main/pg_hba.conf
+
+  - name: create pgpass
+    sudo: no
+    lineinfile: dest=~/.pgpass regexp='{{ rails_postgresql_db_name }}$' line='*:*:*:{{ rails_postgresql_db_name }}:{{ rails_postgresql_db_name }}' mode=0600 create=yes
+
+  - name: restart postgres
+    sudo_user: root
+    shell: service postgresql restart
+                            
+
+
