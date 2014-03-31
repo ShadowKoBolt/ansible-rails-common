@@ -13,3 +13,6 @@
 
   - include: rails_postgresql_db.yml
     when: rails_postgresql_db_name is defined
+
+  - include: rails_mysql_db.yml
+    when: rails_mysql_db_name is defined

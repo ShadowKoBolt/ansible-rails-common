@@ -1,0 +1,14 @@
+- name: install mysql
+  apt: pkg={{item}} state=present
+  with_items: 
+    - mysql-server
+    - python-mysqldb
+
+- name: create mysql database
+  mysql_db: name={{rails_mysql_db_name}}_{{item}} encoding=utf8 collation=utf8_general_ci
+  with_items:
+  - development
+  - test
+    
+- name: create mysql user
+  mysql_user: name={{rails_mysql_db_name}} password={{rails_mysql_db_name}} priv=*.*:ALL
