@@ -117,6 +117,8 @@ galaxy_info:
 dependencies: 
   - role: ShadowKoBolt.postgresql
     when: rails_postgresql_db_name is defined
+  - role: ShadowKoBolt.mysql
+    when: rails_mysql_db_name is defined
   - role: ShadowKoBolt.ruby
     when: skip_ruby != true
   
